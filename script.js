@@ -37,8 +37,8 @@ async function listaDeProdutos() {
 
 const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
 
-const cartItemClickListener = (event) => {
-
+const cartItemClickListener = (e) => {
+  e.target.remove();
 };
 
 const createCartItemElement = ({ sku, name, salePrice }) => {
