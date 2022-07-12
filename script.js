@@ -1,3 +1,5 @@
+const buscarOL = document.querySelector('.cart__items');
+
 const createProductImageElement = (imageSource) => {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -50,23 +52,37 @@ const createCartItemElement = ({ sku, name, salePrice }) => {
 };
 
 async function carrinho(e) {
-  const cartItems = document.querySelector('.cart__items');
   const pai = e.target.parentElement;
   const buscar = pai.querySelector('.item__sku');
   const response = await fetchItem(buscar.innerText);
-  cartItems.appendChild(createCartItemElement(
+  buscarOL.appendChild(createCartItemElement(
     { sku: response.id, name: response.title, salePrice: response.price },
     ));
 }
 
 function addEvent() {
   const btn = document.querySelectorAll('.item__add');
-  btn.forEach((element) => {
-    element.addEventListener('click', carrinho);
-  });
+  btn.forEach((element) => element.addEventListener('click', async (e) => {
+    await carrinho(e);
+    const innerHtmlDoOL = buscarOL.innerHTML;
+    saveCartItems(innerHtmlDoOL);
+  }));
 }
+const addEventoDeClickNaLiDpsDoLS = () => {
+  const li = document.querySelectorAll('.cart__item');
+  li.forEach((element) => {
+    element.addEventListener('click', cartItemClickListener);
+  });
+};
+
+const resgataDoLocalStorage = () => {
+  const dados = getSavedCartItems();
+  buscarOL.innerHTML = dados;
+};
 
 window.onload = async () => {
   await listaDeProdutos();
   addEvent();
+  resgataDoLocalStorage();
+  addEventoDeClickNaLiDpsDoLS();
  };
