@@ -38,7 +38,7 @@ async function listaDeProdutos() {
 const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
 
 const cartItemClickListener = (event) => {
-  // coloque seu código aqui
+
 };
 
 const createCartItemElement = ({ sku, name, salePrice }) => {
@@ -49,6 +49,24 @@ const createCartItemElement = ({ sku, name, salePrice }) => {
   return li;
 };
 
-window.onload = () => {
-  listaDeProdutos();
+async function carrinho(e) {
+  const cartItems = document.querySelector('.cart__items');
+  const pai = e.target.parentElement;
+  const buscar = pai.querySelector('.item__sku');
+  const response = await fetchItem(buscar.innerText);
+  cartItems.appendChild(createCartItemElement(
+    { sku: response.id, name: response.title, salePrice: response.price },
+    ));
+}
+
+function addEvent() {
+  const btn = document.querySelectorAll('.item__add');
+  btn.forEach((element) => {
+    element.addEventListener('click', carrinho);
+  });
+}
+
+window.onload = async () => {
+  await listaDeProdutos();
+  addEvent();
  };
