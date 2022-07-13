@@ -1,5 +1,6 @@
 const buscarOL = document.querySelector('.cart__items');
 const totalHtml = document.querySelector('.total-price');
+const items = document.querySelector('.items');
 
 const createProductImageElement = (imageSource) => {
   const img = document.createElement('img');
@@ -28,7 +29,6 @@ const createProductItemElement = ({ sku, name, image }) => {
 };
 
 async function listaDeProdutos() {
-  const items = document.querySelector('.items');
   const response = await fetchProducts('computador');
   const resultado = response.results;
   resultado.forEach((element) => {
@@ -105,8 +105,22 @@ const clearCart = () => {
   });
 };
 
+const carregando = () => {
+  const creath3 = document.createElement('h3');
+  creath3.className = 'loading';
+  creath3.innerText = 'carregando...';
+  items.appendChild(creath3);
+};
+
+const depoisDaApiTerminar = () => {
+  const buscaOLoading = document.querySelector('.loading');
+  buscaOLoading.remove();
+};
+
 window.onload = async () => {
+  carregando();
   await listaDeProdutos();
+  depoisDaApiTerminar();
   addEvent();
   resgataDoLocalStorage();
   addEventoDeClickNaLiDpsDoLS();
