@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
+    <title>Shopping Cart</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,9 +19,13 @@
   <body>
     <header class="header">
       <div class="container-title">
-        <span class="title"><strong>trybe</strong>shopping</span>
+        <span class="title"><b>trybe</b>shopping</span>
+        <div id="tst">
+          <input id="especifico" type="text">
+          <img id="img" src="./icons8-pesquisar-24.png" alt="">
+        </div>
       </div>
-      <i class="material-icons" style="font-size:45px;color:white">shopping_cart</i>
+      <i class="material-icons" style="font-size:45px;color:#8880FE">shopping_cart</i>
       <div class="container-cartTitle">
         <span class="cart__title">Meu carrinho</span>
       </div>
@@ -30,7 +34,10 @@
       <section class="items"></section>
       <section class="cart">
         <ol class="cart__items"></ol>
-        <h4 class="total-price">0.00</h4>
+        <span>
+         Total:
+         <span class="total-price">0</span>
+        </span>
         <button class="empty-cart">Esvaziar carrinho</button>
       </section>
     </section>
